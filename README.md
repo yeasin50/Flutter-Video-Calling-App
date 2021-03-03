@@ -4,7 +4,7 @@
 * ### [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
 * ###  [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
 
-It's better to visit [official doc.](https://pub.dev/packages/flutter_webrt)  
+It's better to visit [official doc.](https://pub.dev/packages/flutter_webrtc)  
 
 android:minSdkVersion="23" for webRTC forground service
 
