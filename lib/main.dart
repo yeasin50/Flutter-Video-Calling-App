@@ -37,12 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _inCalling = false;
 
   final Map<String, dynamic> mediaConstraints = {
-    'audio': false,
+    'audio': true,
     'video': {
+      /// `Provide your own width, height and frame rate here`
+      /// if it's larger than your screen , it wount showUP
       'mandatory': {
-        'minWidth':
-            '1280', // Provide your own width, height and frame rate here
-        'minHeight': '720',
+        'minWidth': '200',
+        'minHeight': '200',
         'minFrameRate': '30',
       },
       'facingMode': 'user',
@@ -85,18 +86,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool isFrontCamera = true;
 
-  // void switchCamera() async {
-  //   if (_localStream != null) {
-  //     bool value = await _localStream.getVideoTracks()[0].switchCamera();
-  //     while (value == this.isFrontCamera)
-  //       value = await _localStream.getVideoTracks()[0].switchCamera();
-  //     this.isFrontCamera = value;
-  //   }
-  // }
+  void switchCamera() async {
+    if (_localStream != null) {
+      bool value = await _localStream.getVideoTracks()[0].switchCamera();
+      while (value == this.isFrontCamera)
+        value = await _localStream.getVideoTracks()[0].switchCamera();
+      this.isFrontCamera = value;
+    }
+  }
 
   getUserMedia() async {
     var devices = await navigator.mediaDevices.getUserMedia(mediaConstraints);
-    log("logs"+devices.toString());
+    log("logs" + devices.toString());
   }
 
   @override
@@ -118,6 +119,10 @@ class _MyHomePageState extends State<MyHomePage> {
               RaisedButton(
                 onPressed: getUserMedia,
                 child: Text("get r"),
+              ),
+              RaisedButton(
+                onPressed: switchCamera,
+                child: Text("Switch Cam"),
               )
             ],
           ),

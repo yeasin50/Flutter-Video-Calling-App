@@ -9,7 +9,9 @@ It's better to visit [official doc.](https://pub.dev/packages/flutter_webrtc)
 
 android:minSdkVersion="23" for webRTC forground service
 
-
+## `Provide your own width, height and frame rate here`  
+if it's larger than your screen , it wount showUP
+    
 
 
 
