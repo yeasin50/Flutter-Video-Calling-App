@@ -3,6 +3,7 @@
 ###  <font color="yellow"> Flutter: 1.22.6</font> &nbsp; <font color="pink"> Dart: 2.10.5</font> 
 * ### [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
 * ###  [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
+* ### [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler)
 
 It's better to visit [official doc.](https://pub.dev/packages/flutter_webrtc)  
 
