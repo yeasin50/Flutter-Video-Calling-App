@@ -5,6 +5,9 @@
 * ###  [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
 * ### [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler)
 
+* ### [`sdp_transform`](https://pub.dev/packages/sdp_transform)   
+  
+
 It's better to visit [official doc.](https://pub.dev/packages/flutter_webrtc)  
 
 android:minSdkVersion="23" for webRTC forground service
@@ -13,7 +16,19 @@ android:minSdkVersion="23" for webRTC forground service
 if it's larger than your screen , it wount showUP
     
 
+[Breakdown of an SDP (Session Description Protocol)](https://webrtchacks.com/sdp-anatomy/)
 
+
+---- 
+# work flow 
+* click Offer on 1st tab
+  * get token and paste on 2nd tab and press set remote desc
+* click answer on 2nd tab and copy sdp
+  * copy and paste on 1st then set remote description
+  * next add candidate
+  * copy candidate from 2nd tab
+  * paste on 1st tab and set as candidate 
+  * congo 
 
 --------
 
