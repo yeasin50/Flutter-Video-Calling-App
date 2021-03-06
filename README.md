@@ -3,7 +3,7 @@
 ###  <font color="yellow"> Flutter: 1.22.6</font> &nbsp; <font color="pink"> Dart: 2.10.5</font> 
 * ### [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
 * ###  [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
-* ### [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler)
+* ### [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler) ``for double check``
 
 * ### [`sdp_transform`](https://pub.dev/packages/sdp_transform)   
   
@@ -25,7 +25,10 @@ if it's larger than your screen , it wount showUP
   * get token and paste on 2nd tab and press set remote desc
 * click answer on 2nd tab and copy sdp
   * copy and paste on 1st then set remote description
-  * next add candidate
+  * click answer on 2nd tab copy and paste 
+  * set remote descript on 1st tab 
+  * 
+  * next add candidate from 2nd tab
   * copy candidate from 2nd tab
   * paste on 1st tab and set as candidate 
   * congo 

@@ -59,6 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
     },
   };
 
+  ///`for UX`
+  ///after clicking offer button there will a generated offer credintial and
+  ///this variable will hold that jsonText
+  ///later it will use to paste button but wait we on diff page ,
+  /// then make textBOX or just use exits textField and filled with generated sdp Jsontext
+  /// instead of depending on consol we gonna print somewhere of debig purpose
+  /// later we will pass this data over some media
+  /// this is called signaling
+  var offerJsonString = null;
+
   @override
   void initState() {
     super.initState();
@@ -136,14 +146,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool isFrontCamera = true;
 
-  // void switchCamera() async {
-  //   if (_localStream != null) {
-  //     bool value = await _localStream.getVideoTracks()[0].switchCamera();
-  //     while (value == this.isFrontCamera)
-  //       value = await _localStream.getVideoTracks()[0].switchCamera();
-  //     this.isFrontCamera = value;
-  //   }
-  // }
+  void switchCamera() async {
+    if (_localStream != null) {
+      bool value = await _localStream.getVideoTracks()[0].switchCamera();
+      while (value == this.isFrontCamera)
+        value = await _localStream.getVideoTracks()[0].switchCamera();
+      this.isFrontCamera = value;
+    }
+  }
 
   // getUserMedia() async {
   //   var devices = await navigator.mediaDevices.getUserMedia(mediaConstraints);
@@ -161,6 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               videoRenderers(),
               offerAnswerButton(),
+              autoCompletedButton(),
               sdpCandidateTF(),
               sdpCandidateButtons(),
               // RaisedButton(
@@ -198,20 +209,31 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
 
-  Row offerAnswerButton() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          RaisedButton(
-            onPressed: _createOFfer,
-            child: Text("Offer"),
-            color: Colors.orange,
-          ),
-          RaisedButton(
-            onPressed: _answer,
-            child: Text("Answer"),
-            color: Colors.orange,
-          ),
-        ],
+  Widget offerAnswerButton() => Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Row(
+              children: [
+                RaisedButton(
+                  onPressed: _createOFfer,
+                  child: Text("Offer"),
+                  color: Colors.orange,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text("1st click here")
+              ],
+            ),
+            RaisedButton(
+              onPressed: _answer,
+              child: Text("Answer"),
+              color: Colors.orange,
+            ),
+          ],
+        ),
       );
 
   Padding sdpCandidateTF() => Padding(
@@ -240,12 +262,41 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       );
 
+  /// `auto copyPaste creditial helper`
+  Widget autoCompletedButton() => Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Row(
+              children: [
+                RaisedButton(
+                  onPressed: _copyPasteSdp,
+                  child: Text("Copy & paste"),
+                  color: Colors.orange,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text("2nd click here")
+              ],
+            ),
+            Container(),
+          ],
+        ),
+      );
+
+  void _copyPasteSdp() {}
+
+  ///`Offer Text copy and hold on Copy & paste`
   void _createOFfer() async {
     Map<String, dynamic> cfMap = {'offerToReceiveVideo': 1};
     RTCSessionDescription description =
         await _peerConnection.createOffer(cfMap);
 
     var session = parse(description.sdp);
+    // log("oFFer>> " + json.encode(session));
+
     print(json.encode(session));
     _offer = true;
     _peerConnection.setLocalDescription(description);
