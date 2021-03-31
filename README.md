@@ -36,6 +36,9 @@ if it's larger than your screen , it wount showUP
 --------
 
 
+### Checking null-safety of packages
+`dart pub outdated --mode=null-safety`
+---
 
 ## Getting Started
 
