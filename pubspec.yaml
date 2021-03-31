@@ -24,7 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_login: ^1.1.0
   flutter_webrtc: ^0.5.8
+  google_fonts: ^2.0.0
   permission_handler: ^5.1.0+2
   sdp_transform: ^0.2.0
 
