@@ -15,10 +15,13 @@ class _BackgroundState extends State<Background> {
       height: double.infinity,
       width: double.infinity,
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-        kbgTLTPrimaryColor,
-        kbgBLrimaryColor,
-      ])),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            kbgTLTPrimaryColor,
+            kbgBLrimaryColor,
+          ])),
     );
   }
 }
