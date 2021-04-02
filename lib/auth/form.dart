@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:web_rtc/config/color_const.dart';
-
 import 'components/rounded_button.dart';
 import 'components/social_icon.dart';
 
 class AuthForm extends StatelessWidget {
-  final isLog = false;
+  final isLogin = true;
   final textFieldContainerDecoration = BoxDecoration(
       border: Border.all(
         width: 3,
         color: Colors.pink,
-
         ///later gradient
       ),
       borderRadius: BorderRadius.circular(20));
@@ -26,22 +23,9 @@ class AuthForm extends StatelessWidget {
           height: 20,
         ),
         emailTextField(),
-        SizedBox(
-          height: 10,
-        ),
-        passwordTextField(),
-        SizedBox(
-          height: 16,
-        ),
-        RoundedButton(
-          labelText: isLog ? "login" : "Signup",
-          onPress: () {
-            print(isLog ? "login" : "Signup");
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
+        passwordTextField("Password"),
+        if (!isLogin) passwordTextField("Confirm Password"),
+        loginORsignupButton(),
         orDivider(),
         SizedBox(
           height: 10,
@@ -51,69 +35,87 @@ class AuthForm extends StatelessWidget {
     );
   }
 
-  Row socialIcons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SocialIcon(
-          iconSrc: Icon(
-            Icons.ac_unit,
-            size: 44,
+  Padding loginORsignupButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: RoundedButton(
+        labelText: isLogin ? "login" : "Signup",
+        onPress: () {
+          print(isLogin ? "login" : "Signup");
+        },
+      ),
+    );
+  }
+
+  Widget socialIcons() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SocialIcon(
+            iconSrc: Icon(
+              Icons.ac_unit,
+              size: 44,
+            ),
+            press: () {
+              print("clicked");
+            },
+            label: "facebook",
           ),
-          press: () {
-            print("clicked");
-          },
-          label: "facebook",
-        ),
-        SocialIcon(
-          iconSrc: Icon(
-            Icons.access_alarm,
-            size: 44,
+          SocialIcon(
+            iconSrc: Icon(
+              Icons.access_alarm,
+              size: 44,
+            ),
+            press: () {
+              print("clicked2");
+            },
+            label: "Google",
           ),
-          press: () {
-            print("clicked2");
-          },
-          label: "Google",
-        ),
-        SocialIcon(
-          iconSrc: Icon(
-            Icons.celebration,
-            size: 44,
+          SocialIcon(
+            iconSrc: Icon(
+              Icons.celebration,
+              size: 44,
+            ),
+            press: () {
+              print("clicked3");
+            },
+            label: "Twitter",
           ),
-          press: () {
-            print("clicked3");
-          },
-          label: "Twitter",
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   LayoutBuilder orDivider() {
     return LayoutBuilder(
-      builder: (context, constraints) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildDivider(),
-          // buildProgressDivider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              "OR",
-              style: GoogleFonts.cabin(
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+      builder: (context, constraints) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildDivider(),
+            // buildProgressDivider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                "OR",
+                style: GoogleFonts.cabin(
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          buildDivider(),
-          // Expanded(
-          //   child: RotatedBox(
-          //     quarterTurns: 2,
-          //     child: buildProgressDivider(),
-          //   ),
-          // ),
-        ],
+            buildDivider(),
+            // Expanded(
+            //   child: RotatedBox(
+            //     quarterTurns: 2,
+            //     child: buildProgressDivider(),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
@@ -137,23 +139,35 @@ class AuthForm extends StatelessWidget {
     );
   }
 
-  InputDecoration inputDecoration(String hint, IconData prefix) {
+  InputDecoration inputDecoration(
+    String hint,
+    IconData prefix,
+  ) {
+    var suffix = Icon(
+      Icons.nat,
+      color: Colors.transparent,
+    );
+    if (hint.contains("Password"))
+      suffix = Icon(
+        Icons.visibility,
+        color: Colors.white.withOpacity(.8),
+      );
+
     return InputDecoration(
       labelText: hint,
       labelStyle: TextStyle(
-        color: Colors.white,
-      ),
-      hintStyle: TextStyle(
-        color: Colors.black,
+        color: Colors.white.withOpacity(.7),
       ),
       prefixIcon: Icon(
         prefix,
         color: Colors.white,
       ),
+      suffixIcon: suffix,
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
           color: Colors.white,
+          width: 2,
         ),
       ),
       enabledBorder: OutlineInputBorder(
@@ -165,31 +179,41 @@ class AuthForm extends StatelessWidget {
     );
   }
 
-  Widget passwordTextField() {
-    return TextFormField(
-      cursorColor: Colors.green,
-      key: ValueKey('password'),
-      decoration: inputDecoration(
-        "password",
-        Icons.ac_unit,
+  Widget passwordTextField(
+    String hint,
+  ) {
+    InputDecoration _decoration = inputDecoration(
+      hint,
+      Icons.ac_unit,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        cursorColor: Colors.green,
+        key: ValueKey(hint),
+        decoration: _decoration,
       ),
     );
   }
 
   Widget emailTextField() {
-    return TextFormField(
-      cursorColor: Colors.green,
-      key: ValueKey('email'),
-      decoration: inputDecoration(
-        "Email",
-        Icons.email,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        cursorColor: Colors.green,
+        key: ValueKey('email'),
+        decoration: inputDecoration(
+          "Email",
+          Icons.email,
+        ),
       ),
     );
   }
 
   Text title(BuildContext context) {
     return Text(
-      isLog ? "Login" : "SignUp",
+      isLogin ? "Login" : "SignUp",
       style: GoogleFonts.aladin(
           letterSpacing: 5,
           fontSize: Theme.of(context).textTheme.headline3.fontSize,
