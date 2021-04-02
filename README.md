@@ -4,19 +4,19 @@
 
 
 
-###  <font color="yellow"> Flutter: 1.22.6</font> &nbsp; <font color="pink"> Dart: 2.10.5</font> 
-* ### [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
-* ###  [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
-* ### [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler) ``for double check``
+<font color="yellow"> Flutter: 2.0.3</font> &nbsp; <font color="pink"> Dart: 2.12.2</font> 
+*  [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
+*   [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
+*  [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler) ``for double check``
 
-* ### [`sdp_transform`](https://pub.dev/packages/sdp_transform)   
+*  [`sdp_transform`](https://pub.dev/packages/sdp_transform)   
   
 
 It's better to visit [official doc.](https://pub.dev/packages/flutter_webrtc)  
 
 android:minSdkVersion="23" for webRTC forground service
 
-## `Provide your own width, height and frame rate here`  
+⚠ `Provide your own width, height and frame rate here`  
 if it's larger than your screen , it wount showUP
     
 
@@ -24,14 +24,16 @@ if it's larger than your screen , it wount showUP
 
 
 ---- 
-# work flow 
+## work flow 
+
 * click Offer on 1st tab
   * get token and paste on 2nd tab and press set remote desc
+  
 * click answer on 2nd tab and copy sdp
   * copy and paste on 1st then set remote description
   * click answer on 2nd tab copy and paste 
   * set remote descript on 1st tab 
-  * 
+  
   * next add candidate from 2nd tab
   * copy candidate from 2nd tab
   * paste on 1st tab and set as candidate 
@@ -40,15 +42,23 @@ if it's larger than your screen , it wount showUP
 --------
 
 
-### Checking null-safety of packages
+------
+
+### Checking null-safety of packages 
+
 `dart pub outdated --mode=null-safety`
----
+
+------
 
 
 
 ## License & copyright
 
 Licensed under the [MIT License](LICENCE).
+
+
+
+-------
 
 ## Getting Started
 
