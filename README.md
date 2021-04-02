@@ -1,5 +1,9 @@
 # webRTC
 
+**Version 1.0.0** 
+
+
+
 ###  <font color="yellow"> Flutter: 1.22.6</font> &nbsp; <font color="pink"> Dart: 2.10.5</font> 
 * ### [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
 * ###  [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
@@ -39,6 +43,12 @@ if it's larger than your screen , it wount showUP
 ### Checking null-safety of packages
 `dart pub outdated --mode=null-safety`
 ---
+
+
+
+## License & copyright
+
+Licensed under the [MIT License](LICENCE).
 
 ## Getting Started
 
