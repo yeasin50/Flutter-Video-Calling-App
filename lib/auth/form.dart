@@ -2,36 +2,91 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'components/rounded_button.dart';
 import 'components/social_icon.dart';
+import 'package:easy_rich_text/easy_rich_text.dart';
 
-class AuthForm extends StatelessWidget {
-  final isLogin = true;
+class AuthForm extends StatefulWidget {
+  @override
+  _AuthFormState createState() => _AuthFormState();
+}
+
+class _AuthFormState extends State<AuthForm> {
+  final isLogin = false;
+  bool _onAlreadyAccTapped = false;
+  bool _passVisibility = true;
+  bool _confPassVisibility = true;
+
   final textFieldContainerDecoration = BoxDecoration(
       border: Border.all(
         width: 3,
         color: Colors.pink,
+
         ///later gradient
       ),
       borderRadius: BorderRadius.circular(20));
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: [
         title(context),
-        SizedBox(
-          height: 20,
+        Align(
+          alignment: Alignment.center,
+          child: LayoutBuilder(
+            builder: (context, constraints) => Container(
+              height: constraints.maxHeight * .5,
+              child: ListView(
+                children: [
+                  emailTextField(),
+                  passwordTextField("Password"),
+                  if (!isLogin) passwordTextField("Confirm Password"),
+                  loginORsignupButton(),
+                  orDivider(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  socialIcons(),
+                ],
+              ),
+            ),
+          ),
         ),
-        emailTextField(),
-        passwordTextField("Password"),
-        if (!isLogin) passwordTextField("Confirm Password"),
-        loginORsignupButton(),
-        orDivider(),
-        SizedBox(
-          height: 10,
-        ),
-        socialIcons()
+        alreadyHaveanAccount(),
       ],
+    );
+  }
+
+  Widget alreadyHaveanAccount() {
+    return Align(
+      alignment: Alignment(0, .81),
+      child: GestureDetector(
+        onTapDown: (details) {
+          setState(() => _onAlreadyAccTapped = true);
+        },
+        onTapUp: (_) => setState(() => _onAlreadyAccTapped = false),
+        onTap: () {
+          print("Sign Up");
+        },
+        child: EasyRichText(
+          "Don't have an Account? Sign up",
+          defaultStyle: GoogleFonts.lato(
+            textStyle: TextStyle(
+              color: Colors.white.withOpacity(.8),
+              backgroundColor: _onAlreadyAccTapped
+                  ? Colors.white.withOpacity(.5)
+                  : Colors.transparent,
+            ),
+          ),
+          patternList: [
+            EasyRichTextPattern(
+              targetString: "Sign up",
+              style: GoogleFonts.cabin(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -143,17 +198,8 @@ class AuthForm extends StatelessWidget {
     String hint,
     IconData prefix,
   ) {
-    var suffix = Icon(
-      Icons.nat,
-      color: Colors.transparent,
-    );
-    if (hint.contains("Password"))
-      suffix = Icon(
-        Icons.visibility,
-        color: Colors.white.withOpacity(.8),
-      );
-
     return InputDecoration(
+      contentPadding: EdgeInsets.all(12),
       labelText: hint,
       labelStyle: TextStyle(
         color: Colors.white.withOpacity(.7),
@@ -162,7 +208,6 @@ class AuthForm extends StatelessWidget {
         prefix,
         color: Colors.white,
       ),
-      suffixIcon: suffix,
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
@@ -186,10 +231,43 @@ class AuthForm extends StatelessWidget {
       hint,
       Icons.ac_unit,
     );
+    if (hint.toLowerCase().contains("confirm"))
+      _decoration = _decoration.copyWith(
+        suffix: GestureDetector(
+          onTap: () => setState(
+            () => _confPassVisibility = !_confPassVisibility,
+          ),
+          child: Icon(
+            _confPassVisibility
+                ? Icons.visibility
+                : Icons.visibility_off_rounded,
+            color: Colors.white.withOpacity(.8),
+          ),
+        ),
+      );
+    else
+      _decoration = _decoration.copyWith(
+        suffix: GestureDetector(
+          onTap: () => setState(
+            () => _passVisibility = !_passVisibility,
+          ),
+          child: Icon(
+            _passVisibility ? Icons.visibility : Icons.visibility_off_rounded,
+            color: Colors.white.withOpacity(.8),
+          ),
+        ),
+      );
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        obscureText: hint.toLowerCase().contains("confirm")
+            ? _confPassVisibility
+                ? true
+                : false
+            : _passVisibility
+                ? true
+                : false,
         cursorColor: Colors.green,
         key: ValueKey(hint),
         decoration: _decoration,
@@ -211,14 +289,17 @@ class AuthForm extends StatelessWidget {
     );
   }
 
-  Text title(BuildContext context) {
-    return Text(
-      isLogin ? "Login" : "SignUp",
-      style: GoogleFonts.aladin(
-          letterSpacing: 5,
-          fontSize: Theme.of(context).textTheme.headline3.fontSize,
-          fontWeight: FontWeight.w600,
-          color: Colors.white),
+  Widget title(BuildContext context) {
+    return Align(
+      alignment: Alignment(0, -.8),
+      child: Text(
+        isLogin ? "Login" : "Sign up",
+        style: GoogleFonts.aladin(
+            letterSpacing: 5,
+            fontSize: Theme.of(context).textTheme.headline3.fontSize,
+            fontWeight: FontWeight.w600,
+            color: Colors.white),
+      ),
     );
   }
 }
