@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_rtc/screens/auth_screen.dart';
+import 'package:web_rtc/screens/auth/auth_screen.dart';
+import 'package:web_rtc/screens/onCall/on_call_running.dart';
 
 main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         backgroundColor: Colors.transparent,
       ),
-      home: AuthScreen(),
+      home: OnCallRunningScreen(),
     );
   }
 }

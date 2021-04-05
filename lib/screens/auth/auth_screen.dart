@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:web_rtc/auth/components/background.dart';
-import 'package:web_rtc/auth/form.dart';
+import 'package:web_rtc/components/background.dart';
+import 'body_form.dart';
 
 class AuthScreen extends StatefulWidget {
+  static const String routeName = "/authScreen";
   AuthScreen({Key key}) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
       body: Stack(
         children: [
           Background(),
-          AuthForm(),
+          SafeArea(child: AuthForm()),
         ],
       ),
     );

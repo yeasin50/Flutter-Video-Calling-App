@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'components/rounded_button.dart';
-import 'components/social_icon.dart';
+import 'package:web_rtc/components/rounded_button.dart';
+import 'package:web_rtc/components/round_icon.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
 
 class AuthForm extends StatefulWidget {
@@ -10,10 +10,14 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final isLogin = false;
+  var isLogin = true;
   bool _onAlreadyAccTapped = false;
   bool _passVisibility = true;
   bool _confPassVisibility = true;
+
+  ///confirm password animation
+  double _minWidth = 0;
+  double _maxWidth = double.maxFinite;
 
   final textFieldContainerDecoration = BoxDecoration(
       border: Border.all(
@@ -26,32 +30,33 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        title(context),
-        Align(
-          alignment: Alignment.center,
-          child: LayoutBuilder(
-            builder: (context, constraints) => Container(
-              height: constraints.maxHeight * .5,
+    return LayoutBuilder(
+      builder: (context, constraints) => Stack(
+        children: [
+          title(context),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              height: constraints.maxHeight * .47,
               child: ListView(
                 children: [
                   emailTextField(),
                   passwordTextField("Password"),
-                  if (!isLogin) passwordTextField("Confirm Password"),
+                  if (!isLogin) confPasswordTextField("Confirm Password"),
                   loginORsignupButton(),
                   orDivider(),
+                  alreadyHaveanAccount(),
                   SizedBox(
                     height: 10,
                   ),
-                  socialIcons(),
+                  // socialIcons(),
                 ],
               ),
             ),
           ),
-        ),
-        alreadyHaveanAccount(),
-      ],
+        ],
+      ),
     );
   }
 
@@ -65,9 +70,14 @@ class _AuthFormState extends State<AuthForm> {
         onTapUp: (_) => setState(() => _onAlreadyAccTapped = false),
         onTap: () {
           print("Sign Up");
+          setState(() {
+            isLogin = !isLogin;
+          });
         },
         child: EasyRichText(
-          "Don't have an Account? Sign up",
+          isLogin
+              ? "Don't have an Account? Sign up"
+              : "Already have an Account? Login",
           defaultStyle: GoogleFonts.lato(
             textStyle: TextStyle(
               color: Colors.white.withOpacity(.8),
@@ -79,6 +89,13 @@ class _AuthFormState extends State<AuthForm> {
           patternList: [
             EasyRichTextPattern(
               targetString: "Sign up",
+              style: GoogleFonts.cabin(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            EasyRichTextPattern(
+              targetString: "Login",
               style: GoogleFonts.cabin(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -108,8 +125,8 @@ class _AuthFormState extends State<AuthForm> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SocialIcon(
-            iconSrc: Icon(
+          RoundIcon(
+            child: Icon(
               Icons.ac_unit,
               size: 44,
             ),
@@ -118,8 +135,8 @@ class _AuthFormState extends State<AuthForm> {
             },
             label: "facebook",
           ),
-          SocialIcon(
-            iconSrc: Icon(
+          RoundIcon(
+            child: Icon(
               Icons.access_alarm,
               size: 44,
             ),
@@ -128,8 +145,8 @@ class _AuthFormState extends State<AuthForm> {
             },
             label: "Google",
           ),
-          SocialIcon(
-            iconSrc: Icon(
+          RoundIcon(
+            child: Icon(
               Icons.celebration,
               size: 44,
             ),
@@ -224,6 +241,7 @@ class _AuthFormState extends State<AuthForm> {
     );
   }
 
+  /// maybe separete 2 coz we wanna implement animation
   Widget passwordTextField(
     String hint,
   ) {
@@ -271,6 +289,43 @@ class _AuthFormState extends State<AuthForm> {
         cursorColor: Colors.green,
         key: ValueKey(hint),
         decoration: _decoration,
+      ),
+    );
+  }
+
+  Widget confPasswordTextField(
+    String hint,
+  ) {
+    InputDecoration _decoration = inputDecoration(
+      hint,
+      Icons.ac_unit,
+    );
+
+    _decoration = _decoration.copyWith(
+      suffix: GestureDetector(
+        onTap: () => setState(
+          () => _confPassVisibility = !_confPassVisibility,
+        ),
+        child: Icon(
+          _confPassVisibility ? Icons.visibility : Icons.visibility_off_rounded,
+          color: Colors.white.withOpacity(.8),
+        ),
+      ),
+    );
+
+    ///FIXME:: controller animation
+    return AnimatedOpacity(
+      duration: Duration(seconds: 6),
+      opacity: isLogin ? 0 : 1,
+      curve: Curves.bounceIn,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          obscureText: _confPassVisibility ? true : false,
+          cursorColor: Colors.green,
+          key: ValueKey(hint),
+          decoration: _decoration,
+        ),
       ),
     );
   }
