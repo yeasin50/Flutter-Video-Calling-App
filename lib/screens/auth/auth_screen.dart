@@ -18,7 +18,9 @@ class _AuthScreenState extends State<AuthScreen> {
       body: Stack(
         children: [
           Background(),
-          SafeArea(child: AuthForm()),
+          SafeArea(
+            child: AuthForm(),
+          ),
         ],
       ),
     );
