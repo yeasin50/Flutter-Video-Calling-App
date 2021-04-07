@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:web_rtc/screens/ChatsScreen/components/conversation_row.dart';
 
+import 'components/custom_logo.dart';
 import 'components/header.dart';
 
 class BodyChatsScreen extends StatefulWidget {
@@ -16,10 +18,34 @@ class _BodyChatsScreenState extends State<BodyChatsScreen> {
         Header(),
 
         ///`search bar`
-        searchBar()
+        searchBar(),
+        conversationRows(),
 
         ///`active list`
       ],
+    );
+  }
+
+  Expanded conversationRows() {
+    return Expanded(
+      child: ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemCount: 17,
+        itemBuilder: (context, index) => ConversationRow(
+          makeBold: index % 2 == 0,
+          isActive: index % 3 == 0,
+          lastConversation: "hey wanna go",
+          lastMsgTime: "12:23pm",
+          name: "Mikasa",
+          leading: Icon(Icons.ac_unit),
+          onPres: () {
+            print("$index");
+          },
+        ),
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
+      ),
     );
   }
 

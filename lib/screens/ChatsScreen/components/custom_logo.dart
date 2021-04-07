@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomLogo extends StatelessWidget {
   final Widget child;
   final double width;
-  final bool isActive;
+  final bool isBorder;
   final Color bgColor;
   final Color borderColor;
   final Function onClick;
@@ -11,7 +11,7 @@ class CustomLogo extends StatelessWidget {
   CustomLogo({
     this.child,
     this.width,
-    this.isActive,
+    this.isBorder,
     this.borderColor,
     this.bgColor,
     this.onClick,
@@ -19,17 +19,17 @@ class CustomLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onClick,
       child: Container(
         width: width ?? 55,
         height: width ?? 55,
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: bgColor ?? Colors.transparent,
           border: Border.all(
-            width: isActive ? 2 : 0,
-            color: borderColor ?? Colors.blue,
+            width: isBorder ? 2 : 0,
+            color: isBorder ? borderColor ?? Colors.blue : Colors.transparent,
           ),
           shape: BoxShape.circle,
         ),

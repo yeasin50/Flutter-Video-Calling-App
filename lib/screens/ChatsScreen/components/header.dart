@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
                 'assets/images/yeasin.jpg',
                 fit: BoxFit.cover,
               ),
-              isActive: true,
+              isBorder: true,
             ),
             buildChattext(context),
             newConversationButton(),
@@ -42,7 +42,7 @@ class Header extends StatelessWidget {
             ),
             bgColor: Colors.grey.withOpacity(.5),
             width: 40,
-            isActive: false,
+            isBorder: false,
             onClick: () {
               print("new chat");
             },
@@ -57,6 +57,7 @@ class Header extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Text(
         "Chats",
+        textAlign: TextAlign.center,
         style: GoogleFonts.acme(
           fontSize: Theme.of(context).textTheme.headline4.fontSize,
           fontWeight: FontWeight.w700,
