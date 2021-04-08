@@ -3,7 +3,7 @@ import 'package:web_rtc/components/round_icon.dart';
 
 class RunningCallBody extends StatefulWidget {
   const RunningCallBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

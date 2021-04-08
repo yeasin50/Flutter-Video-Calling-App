@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'body.dart';
 
 class OpenningScreen extends StatelessWidget {
-  OpenningScreen({Key key}) : super(key: key);
+  static const String routeName = "/Conversations";
+  OpenningScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

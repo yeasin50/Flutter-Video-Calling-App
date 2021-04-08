@@ -5,7 +5,7 @@ import 'body_on_call.dart';
 
 class OnCallRunningScreen extends StatefulWidget {
   static const String routeName = "/onCallScreen";
-  OnCallRunningScreen({Key key}) : super(key: key);
+  OnCallRunningScreen({Key? key}) : super(key: key);
 
   @override
   _OnCallRunningScreenState createState() => _OnCallRunningScreenState();

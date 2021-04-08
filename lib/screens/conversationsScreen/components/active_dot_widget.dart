@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ActiveDotOnLogo extends StatelessWidget {
-  final Widget child;
-  final double width;
+  final Widget? child;
+  final double? width;
 
-  const ActiveDotOnLogo({Key key, this.child, this.width}) : super(key: key);
+  const ActiveDotOnLogo({Key? key, this.child, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

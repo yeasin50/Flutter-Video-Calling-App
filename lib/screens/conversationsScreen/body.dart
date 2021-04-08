@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:web_rtc/screens/ChatsScreen/components/conversation_row.dart';
 
-import 'components/custom_logo.dart';
+import 'components/conversation_row.dart';
 import 'components/header.dart';
 
 class BodyChatsScreen extends StatefulWidget {
-  BodyChatsScreen({Key key}) : super(key: key);
+  BodyChatsScreen({Key? key}) : super(key: key);
   @override
   _BodyChatsScreenState createState() => _BodyChatsScreenState();
 }

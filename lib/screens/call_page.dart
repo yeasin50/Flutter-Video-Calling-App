@@ -12,10 +12,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _localRenderer = new RTCVideoRenderer();
-  MediaStream _localStream;
+  MediaStream? _localStream;
   bool _offer = false;
 
-  RTCPeerConnection _peerConnection;
+  late RTCPeerConnection _peerConnection;
 
   ///second person
   final _remoteRenderer = new RTCVideoRenderer();
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   /// instead of depending on consol we gonna print somewhere of debig purpose
   /// later we will pass this data over some media
   /// this is called signaling
-  var offerJsonString = null;
+  dynamic offerJsonString = null;
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     RTCPeerConnection pc =
         await createPeerConnection(config, offerSdpConstraints);
 
-    pc.addStream(_localStream);
+    pc.addStream(_localStream!);
 
     pc.onIceCandidate = (e) {
       if (e.candidate != null) {
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    _localStream.dispose();
+    _localStream!.dispose();
     _localRenderer.dispose();
     _remoteRenderer.dispose();
     sdpController.dispose();
@@ -126,9 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void switchCamera() async {
     if (_localStream != null) {
-      bool value = await _localStream.getVideoTracks()[0].switchCamera();
+      bool value = await _localStream!.getVideoTracks()[0].switchCamera();
       while (value == this.isFrontCamera)
-        value = await _localStream.getVideoTracks()[0].switchCamera();
+        value = await _localStream!.getVideoTracks()[0].switchCamera();
       this.isFrontCamera = value;
     }
   }
@@ -272,7 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
     RTCSessionDescription description =
         await _peerConnection.createOffer(cfMap);
 
-    var session = parse(description.sdp);
+    var session = parse(description.sdp!);
     // log("oFFer>> " + json.encode(session));
 
     print(json.encode(session));
@@ -298,7 +298,7 @@ class _MyHomePageState extends State<MyHomePage> {
     RTCSessionDescription description =
         await _peerConnection.createAnswer({'offerToReceiveVideo': 1});
 
-    var session = parse(description.sdp);
+    var session = parse(description.sdp!);
     print(json.encode(session));
     _peerConnection.setLocalDescription(description);
   }

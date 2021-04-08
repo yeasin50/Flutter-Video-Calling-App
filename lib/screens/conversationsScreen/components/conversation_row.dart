@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:web_rtc/screens/ChatsScreen/components/custom_logo.dart';
 
 import 'active_dot_widget.dart';
+import 'custom_logo.dart';
 
 class ConversationRow extends StatelessWidget {
-  final String name;
-  final String lastConversation;
-  final String lastMsgTime;
-  final bool makeBold;
-  final bool isActive;
-  final Widget leading;
-  final Function onPres;
-  final Function onLongPres;
+  final String? name;
+  final String? lastConversation;
+  final String? lastMsgTime;
+  final bool? makeBold;
+  final bool? isActive;
+  final Widget? leading;
+  final Function? onPres;
+  final Function? onLongPres;
 
   ConversationRow({
-    Key key,
+    Key? key,
     this.name,
     this.lastConversation,
     this.makeBold,
@@ -29,8 +29,8 @@ class ConversationRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPres,
-      onLongPress: onLongPres,
+      onTap: onPres as void Function()?,
+      onLongPress: onLongPres as void Function()?,
       splashColor: Colors.blue,
       borderRadius: BorderRadius.circular(15),
       child: ListTile(
@@ -38,7 +38,7 @@ class ConversationRow extends StatelessWidget {
           left: 4,
           right: 4,
         ),
-        leading: isActive
+        leading: isActive!
             ? ActiveDotOnLogo(
                 child: leading,
               )
@@ -48,19 +48,19 @@ class ConversationRow extends StatelessWidget {
                 borderColor: Colors.grey.withOpacity(.5),
               ),
         title: Text(
-          name,
+          name!,
           style: GoogleFonts.lato(
-            fontWeight: !makeBold ? FontWeight.w400 : FontWeight.w800,
+            fontWeight: !makeBold! ? FontWeight.w400 : FontWeight.w800,
           ),
         ),
         subtitle: Text(
-          lastConversation,
+          lastConversation!,
           style: GoogleFonts.lato(
-            fontWeight: !makeBold ? FontWeight.w400 : FontWeight.w900,
+            fontWeight: !makeBold! ? FontWeight.w400 : FontWeight.w900,
           ),
         ),
         trailing: Text(
-          lastMsgTime,
+          lastMsgTime!,
         ),
       ),
     );

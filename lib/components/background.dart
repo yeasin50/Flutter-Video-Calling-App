@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:web_rtc/config/color_const.dart';
 
 class Background extends StatefulWidget {
-  Background({Key key}) : super(key: key);
+  Background({Key? key}) : super(key: key);
 
   @override
   _BackgroundState createState() => _BackgroundState();

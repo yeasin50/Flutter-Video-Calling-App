@@ -351,7 +351,7 @@ class _AuthFormState extends State<AuthForm> {
         isLogin ? "Login" : "Sign up",
         style: GoogleFonts.aladin(
             letterSpacing: 5,
-            fontSize: Theme.of(context).textTheme.headline3.fontSize,
+            fontSize: Theme.of(context).textTheme.headline3!.fontSize,
             fontWeight: FontWeight.w600,
             color: Colors.white),
       ),

@@ -59,7 +59,7 @@ class Header extends StatelessWidget {
         "Chats",
         textAlign: TextAlign.center,
         style: GoogleFonts.acme(
-          fontSize: Theme.of(context).textTheme.headline4.fontSize,
+          fontSize: Theme.of(context).textTheme.headline4!.fontSize,
           fontWeight: FontWeight.w700,
         ),
       ),

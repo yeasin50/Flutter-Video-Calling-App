@@ -4,7 +4,7 @@ import 'body_form.dart';
 
 class AuthScreen extends StatefulWidget {
   static const String routeName = "/authScreen";
-  AuthScreen({Key key}) : super(key: key);
+  AuthScreen({Key? key}) : super(key: key);
 
   @override
   _AuthScreenState createState() => _AuthScreenState();
