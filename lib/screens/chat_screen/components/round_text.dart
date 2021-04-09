@@ -20,7 +20,6 @@ class RoundTextContainer extends StatelessWidget {
   });
 
   Widget build(BuildContext context) {
-    ///TODO:: set width = msgLength + padding
     return Container(
       width: width,
       height: height,

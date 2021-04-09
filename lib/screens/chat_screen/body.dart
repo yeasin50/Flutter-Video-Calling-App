@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_rtc/screens/chat_screen/components/footer.dart';
 import 'package:web_rtc/screens/chat_screen/message_list.dart';
 
 import 'components/header.dart';
@@ -22,6 +23,9 @@ class _ChatBodyState extends State<ChatBody> {
 
         ///`messages`
         MessageList(),
+
+        ///`footer`
+        ChatFooter(),
       ],
     );
   }
