@@ -7,12 +7,14 @@ class RowMessage extends StatelessWidget {
   final String photUrl;
   final bool isMe;
   final String msg;
+  final bool drawAvatar;
 
   RowMessage({
     Key? key,
     required this.msg,
     required this.photUrl,
     required this.isMe,
+    required this.drawAvatar,
   }) : super(key: key);
 
   final _style = GoogleFonts.lato();
@@ -54,7 +56,8 @@ class RowMessage extends StatelessWidget {
             style: _style,
             width: _textSize(constraints.maxWidth * .7).width +
                 constraints.maxWidth * .05,
-            height: _textSize(constraints.maxWidth * .7).height + kToolbarHeight* .2,
+            height: _textSize(constraints.maxWidth * .7).height +
+                kToolbarHeight * .2,
             isMe: isMe,
           ),
           if (!isMe) buildLogo(),
@@ -67,11 +70,15 @@ class RowMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: ClipOval(
-        child: Image.asset(
-          photUrl,
-          width: kToolbarHeight * .5,
-          fit: BoxFit.cover,
-        ),
+        child: drawAvatar
+            ? Image.asset(
+                photUrl,
+                width: kToolbarHeight * .5,
+                fit: BoxFit.cover,
+              )
+            : SizedBox(
+                width: kToolbarHeight * .5,
+              ),
       ),
     );
   }
