@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_rtc/dummy_data/user_message.dart';
+import 'package:web_rtc/model/message.dart';
 
 /// when clicking more actions button>
 ///  - open the `actions row`, hide `send` button
@@ -10,9 +12,11 @@ class ChatFooter extends StatefulWidget {
   _ChatFooterState createState() => _ChatFooterState();
 }
 
+/// Here im taking myself as `User2`
 class _ChatFooterState extends State<ChatFooter> {
   bool _sendButton = false;
   bool _openMoreActions = false;
+  TextEditingController _messageController = new TextEditingController();
 
   /// textForm decoration
   final InputDecoration _inputDecoration = InputDecoration(
@@ -48,6 +52,18 @@ class _ChatFooterState extends State<ChatFooter> {
     ),
   );
 
+  _sendMessage() {
+    setState(() {
+      dummyGMessage.add(Message(
+        senderUId: "user2",
+        receiverUId: "user1",
+        text: _messageController.text.toString().trim(),
+        sentTime: DateTime.now(),
+      ));
+      _messageController.text = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,6 +95,7 @@ class _ChatFooterState extends State<ChatFooter> {
           Expanded(
             child: TextFormField(
               decoration: _inputDecoration,
+              controller: _messageController,
               onChanged: (value) {
                 setState(() {
                   if (value.isNotEmpty)
@@ -96,7 +113,7 @@ class _ChatFooterState extends State<ChatFooter> {
                 Icons.send,
                 color: Colors.blue,
               ),
-              onPressed: () {},
+              onPressed: _sendMessage,
             ),
         ],
       ),
