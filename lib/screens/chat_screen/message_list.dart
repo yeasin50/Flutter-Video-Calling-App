@@ -22,11 +22,13 @@ class MessageList extends StatelessWidget {
             // final   = dummyMessages[index];
             ///check if this message alreay sent by current index user
 
-            bool _draw = true;
+            bool _draw = false;
             if (index > 1) {
               _draw = dummyMessages[index].senderUId !=
                   dummyMessages[index - 1].senderUId;
             }
+            if (index == 0) _draw = true;
+
             return RowMessage(
               /// Here im taking myself as `User2`
               isMe: dummyMessages[index].senderUId == "user2",

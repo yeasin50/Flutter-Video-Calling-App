@@ -50,4 +50,4 @@ List<Message> _dummyMessages = [
   msg(false, "always do"),
 ];
 //TODO:: reverse the messages
-List<Message> dummyMessages = [];
+List<Message> dummyMessages = new List.from(_dummyMessages.reversed);
