@@ -1,23 +1,23 @@
 # webRTC
 
-**Version 1.0.0** 
+![dependencies](https://img.shields.io/badge/channel-stable-blue) 
+![dependencies](https://img.shields.io/badge/Flutter-v2.0.3-blue) 
+![dependencies](https://img.shields.io/badge/Dart-v2.12.2-blue)
 
+<a href='https://pub.dev/packages/flutter_webrtc'>  
 
+![dependencies](https://img.shields.io/badge/flutter_webrtc-0.5.8-blue) </a> 
+<a href=https://pub.dev/packages/sdp_transform>
+![dependencies](https://img.shields.io/badge/sdp_transform-v2.0.3-blue) 
+</a>
 
-<font color="yellow"> Flutter: 2.0.3</font> &nbsp; <font color="pink"> Dart: 2.12.2</font> 
-*  [``flutter_webrtc: 0.5.8``](https://pub.dev/packages/flutter_webrtc)
-*   [`flutter_foreground_plugin: ^0.6.0`](https://pub.dev/packages/flutter_foreground_plugin)
-*  [`permission_handler: ^5.1.0+2`](https://pub.dev/packages/permission_handler) ``for double check``
-
-*  [`sdp_transform`](https://pub.dev/packages/sdp_transform)   
-  
 
 It's better to visit [official doc.](https://pub.dev/packages/flutter_webrtc)  
 
-android:minSdkVersion="23" for webRTC forground service
+``android:minSdkVersion="23" for webRTC forground service``
 
 ⚠ `Provide your own width, height and frame rate here`  
-if it's larger than your screen , it wount showUP
+if it's larger than your screen , it wont showUP
     
 
 [Breakdown of an SDP (Session Description Protocol)](https://webrtchacks.com/sdp-anatomy/)

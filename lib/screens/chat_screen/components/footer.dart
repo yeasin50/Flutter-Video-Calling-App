@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:web_rtc/dummy_data/user_message.dart';
 import 'package:web_rtc/model/message.dart';
+import 'package:web_rtc/provider/dummy_data.dart';
 
 /// when clicking more actions button>
 ///  - open the `actions row`, hide `send` button
@@ -53,15 +55,20 @@ class _ChatFooterState extends State<ChatFooter> {
   );
 
   _sendMessage() {
+    // "user1" : "user2"
+    final msg = Message(
+      senderUId: "user2",
+      receiverUId: "user1",
+      text: _messageController.text.toString().trim(),
+      sentTime: DateTime.now(),
+    );
+    Provider.of<MessageProvider>(context, listen: false).addMessage(msg);
+
     setState(() {
-      dummyGMessage.add(Message(
-        senderUId: "user2",
-        receiverUId: "user1",
-        text: _messageController.text.toString().trim(),
-        sentTime: DateTime.now(),
-      ));
+      _sendButton = false;
       _messageController.text = "";
     });
+    print(dummyMessages.length);
   }
 
   @override

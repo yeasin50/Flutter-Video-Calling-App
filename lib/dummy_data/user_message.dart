@@ -17,14 +17,6 @@ final List<String> _list = [
   "it was there , from here and there but near, btw not here but somewhere."
 ];
 
-List<Message> dummyGMessage = List.generate(
-    20,
-    (index) => Message(
-          senderUId: (index % 2).toString(),
-          receiverUId: _userID,
-          text: _list[index % 6],
-          sentTime: DateTime.now(),
-        ));
 
 ///`UI`
 Message msg(bool isMe, String msg) {
