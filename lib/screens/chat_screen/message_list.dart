@@ -54,7 +54,7 @@ class _MessageListState extends State<MessageList> {
             return RowMessage(
               /// Here im taking myself as `User2`
               isMe:messages[index].senderUId == "user2",
-              msg: messages[index].text,
+              msg: messages[index],
               photUrl: photUrl,
               drawAvatar: _draw,
             );

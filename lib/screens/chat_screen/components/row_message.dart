@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:web_rtc/model/message.dart';
 
 import 'round_text.dart';
 
 class RowMessage extends StatelessWidget {
   final String photUrl;
   final bool isMe;
-  final String msg;
+  final Message msg;
   final bool drawAvatar;
 
   RowMessage({
@@ -21,12 +22,12 @@ class RowMessage extends StatelessWidget {
 
   Size _textSize(var maxWidth) {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(
-          text: msg,
-          style: _style,
-        ),
-        textDirection: TextDirection.ltr)
-      ..layout(minWidth: 0, maxWidth: maxWidth);
+      text: TextSpan(
+        text: msg.text,
+        style: _style,
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout(minWidth: 0, maxWidth: maxWidth);
     return textPainter.size;
   }
 
@@ -52,9 +53,9 @@ class RowMessage extends StatelessWidget {
           ///based on that use icon or hide
           if (isMe) buildLogo(),
           RoundTextContainer(
-            text: msg,
+            message: msg,
             style: _style,
-            width: _textSize(constraints.maxWidth * .7).width +
+            width: _textSize(constraints.maxWidth * .5).width +
                 constraints.maxWidth * .05,
             height: _textSize(constraints.maxWidth * .7).height +
                 kToolbarHeight * .2,

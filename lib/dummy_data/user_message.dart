@@ -17,14 +17,14 @@ final List<String> _list = [
   "it was there , from here and there but near, btw not here but somewhere."
 ];
 
-
 ///`UI`
+int min = 0;
 Message msg(bool isMe, String msg) {
   return Message(
     senderUId: isMe ? "user1" : "user2",
     receiverUId: !isMe ? "user1" : "user2",
     text: msg,
-    sentTime: DateTime.now(),
+    sentTime: DateTime(2021, 1, 1, 10, min += 1),
   );
 }
 
