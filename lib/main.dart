@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web_rtc/model/message.dart';
-import 'package:web_rtc/screens/auth/auth_screen.dart';
-import 'package:web_rtc/screens/onCall/on_call_running.dart';
 
 import 'provider/dummy_data.dart';
 import 'screens/chat_screen/chatting_screen.dart';
-import 'screens/chat_screen/components/message_box.dart';
 
 main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +34,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           backgroundColor: Colors.transparent,
         ),
-        home: MessageBox(),
+        home: ChattingScreen(),
       ),
     );
   }

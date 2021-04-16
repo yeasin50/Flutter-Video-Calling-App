@@ -33,10 +33,9 @@ class RoundTextContainer extends StatelessWidget {
       ///TODO:: change height
       margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
       child: Column(
-        // mainAxisSize: MainAxisSize.min,
-        // mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
+          ///`message`
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
@@ -48,21 +47,27 @@ class RoundTextContainer extends StatelessWidget {
               style: style ?? GoogleFonts.lato(),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: FittedBox(
-              child: Text(
-                time,
-                softWrap: false,
-                overflow: TextOverflow.clip,
-                // maxLines: 1,
-                textAlign: TextAlign.end,
-                style: GoogleFonts.lato(
-                  fontSize: fontTimeS,
-                  color: Colors.black87,
+
+          ///`Sent Timde`
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: FittedBox(
+                  child: Text(
+                    time,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.end,
+                    style: GoogleFonts.lato(
+                      fontSize: fontTimeS,
+                      color: Colors.black87,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),
