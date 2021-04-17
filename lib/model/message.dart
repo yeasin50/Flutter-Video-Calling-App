@@ -2,6 +2,7 @@ const String keySender = "senderUId";
 const String keyReceiver = "receiverUI";
 const String keyText = "message";
 const String keyTime = "sentTime";
+const String keySend = "none/sent/deliverd";
 
 class Message {
   final String senderUId;
@@ -31,6 +32,6 @@ class Message {
       receiverUId: json[keyReceiver],
       text: json[keyText],
       sentTime: json[keyTime],
-    ); 
+    );
   }
 }
