@@ -47,13 +47,13 @@ class _MessageListState extends State<MessageList> {
             ///check if this message alreay sent by current index user
             bool _draw = false;
             if (index > 1) {
-              _draw = messages[index].senderUId !=
-                  messages[index - 1].senderUId;
+              _draw =
+                  messages[index].senderUId != messages[index - 1].senderUId;
             }
             if (index == 0) _draw = true;
             return RowMessage(
               /// Here im taking myself as `User2`
-              isMe:messages[index].senderUId == "user2",
+              isMe: messages[index].senderUId == "user2",
               msg: messages[index],
               photUrl: photUrl,
               drawAvatar: _draw,

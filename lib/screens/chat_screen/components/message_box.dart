@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_rtc/components/utils.dart';
 import 'package:web_rtc/model/message.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,20 +18,6 @@ class MessageBox extends StatelessWidget {
   //     "hey amigo, hows'going everything hum, ";
 
   // String smallText = "hey";
-
-  Size _textSize(String _text, TextStyle style, var maxWidth) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: _text,
-        style: style,
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout(
-        minWidth: 0,
-        maxWidth: maxWidth,
-      );
-    return textPainter.size;
-  }
 
   String date = "12/12/12";
 
@@ -55,17 +42,19 @@ class MessageBox extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         double textWidth =
-            _textSize(message.text, _styleMsg, constraints.maxWidth * .7).width;
+            Utils.textSize(message.text, _styleMsg, constraints.maxWidth * .7)
+                .width;
 
         double _height =
-            _textSize(message.text, _styleMsg, constraints.maxHeight).height *
+            Utils.textSize(message.text, _styleMsg, constraints.maxHeight)
+                    .height *
                 2;
 
         //Just checking if it fit on single line
         if (textWidth < constraints.maxWidth * .5) {
           singleLine = true;
           textWidth +=
-              (_textSize(time, _styleTime, constraints.maxWidth * .7).width) *
+              (Utils.textSize(time, _styleTime, constraints.maxWidth * .7).width) *
                   2;
         }
 

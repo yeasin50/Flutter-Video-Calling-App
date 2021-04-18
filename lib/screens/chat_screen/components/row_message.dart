@@ -18,19 +18,6 @@ class RowMessage extends StatelessWidget {
     required this.drawAvatar,
   }) : super(key: key);
 
-  final _style = GoogleFonts.lato();
-
-  Size _textSize(var maxWidth) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: msg.text,
-        style: _style,
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout(minWidth: 0, maxWidth: maxWidth);
-    return textPainter.size;
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -45,7 +32,7 @@ class RowMessage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment:
             isMe ? MainAxisAlignment.start : MainAxisAlignment.end,
         children: [
@@ -54,11 +41,6 @@ class RowMessage extends StatelessWidget {
           if (isMe) buildLogo(),
           RoundTextContainer(
             message: msg,
-            style: _style,
-            width: _textSize(constraints.maxWidth * .5).width +
-                constraints.maxWidth * .05,
-            height: _textSize(constraints.maxWidth * .7).height +
-                kToolbarHeight * .2,
             isMe: isMe,
           ),
           if (!isMe) buildLogo(),
