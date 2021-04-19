@@ -14,11 +14,23 @@ class RoundTextContainer extends StatelessWidget {
 
   late String time;
 
+  late TextStyle _styleMsg, _styleTime;
+
   RoundTextContainer({
     Key? key,
     required this.message,
     required this.isMe,
-  });
+  }) {
+    _styleMsg = GoogleFonts.lato(
+      fontSize: SizeConfig.bodyText1,
+      color: isMe ? Colors.black : Colors.white,
+    );
+
+    _styleTime = GoogleFonts.lato(
+      fontSize: SizeConfig.subtitle1*.5,
+      color: Colors.white,
+    );
+  }
 
   final Radius _cornerRadius = Radius.circular(10);
 
@@ -26,15 +38,6 @@ class RoundTextContainer extends StatelessWidget {
 
   ///TODO:: set ScreenSize at top level before Row
   ///call and init here
-
-  final TextStyle _styleMsg = GoogleFonts.lato(
-    fontSize: 22,
-  );
-
-  final TextStyle _styleTime = GoogleFonts.lato(
-    fontSize: 8,
-    color: Colors.white,
-  );
 
   Widget build(BuildContext context) {
     double maxWidth = SizeConfig.screenWidth;
@@ -88,7 +91,7 @@ class RoundTextContainer extends StatelessWidget {
     else
       return Container(
         width: _textWidth + 1,
-        height: _height + _timeTextSize.height,
+        height: _height + _timeTextSize.height+10,
         margin: EdgeInsets.only(right: 8),
         padding: EdgeInsets.only(right: 2),
         child: Column(
@@ -106,7 +109,7 @@ class RoundTextContainer extends StatelessWidget {
 
   BoxDecoration buildBoxDecoration() {
     return BoxDecoration(
-      color: isMe ? Colors.orange.withOpacity(.7) : Colors.blue.withOpacity(.7),
+      color: isMe ? Colors.grey.withOpacity(.6) : Colors.blue.withOpacity(.9),
       borderRadius: BorderRadius.only(
         topLeft: _cornerRadius,
         topRight: _cornerRadius,

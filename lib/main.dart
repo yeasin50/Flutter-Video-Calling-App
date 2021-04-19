@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'provider/dummy_data.dart';
 import 'screens/chat_screen/chatting_screen.dart';
+import 'screens/onCall/body_on_video_call.dart';
+import 'screens/onCall/on_call_running.dart';
 
 main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           backgroundColor: Colors.transparent,
         ),
-        home: ChattingScreen(),
+        home: OnCallRunningScreen(),
       ),
     );
   }
