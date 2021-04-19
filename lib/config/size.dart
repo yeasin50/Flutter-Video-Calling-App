@@ -6,12 +6,16 @@ class SizeConfig {
   static late double screenHeight;
   static double? defaultSize;
   static Orientation? orientation;
+  static late double bodyText1;
+  static late double subtitle1;
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
     orientation = _mediaQueryData.orientation;
+    bodyText1 = Theme.of(context).textTheme.bodyText1!.fontSize!;
+    subtitle1 =  Theme.of(context).textTheme.subtitle1!.fontSize!;
   }
 }
 
