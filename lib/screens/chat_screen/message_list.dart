@@ -51,12 +51,15 @@ class _MessageListState extends State<MessageList> {
                   messages[index].senderUId != messages[index - 1].senderUId;
             }
             if (index == 0) _draw = true;
+
+            /// removing user' logo
+
             return RowMessage(
               /// Here im taking myself as `User2`
               isMe: messages[index].senderUId == "user2",
               msg: messages[index],
               photUrl: photUrl,
-              drawAvatar: _draw,
+              drawAvatar: messages[index].senderUId == "user1" ? false : _draw,
             );
           }),
     );

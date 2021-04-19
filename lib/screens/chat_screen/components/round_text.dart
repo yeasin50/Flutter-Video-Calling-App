@@ -74,6 +74,7 @@ class RoundTextContainer extends StatelessWidget {
         width: _textWidth + 1,
         height: _height,
         padding: EdgeInsets.symmetric(vertical: 2),
+        margin: EdgeInsets.only(right: 8),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -88,6 +89,7 @@ class RoundTextContainer extends StatelessWidget {
       return Container(
         width: _textWidth + 1,
         height: _height + _timeTextSize.height,
+        margin: EdgeInsets.only(right: 8),
         padding: EdgeInsets.only(right: 2),
         child: Column(
           mainAxisSize: MainAxisSize.min,

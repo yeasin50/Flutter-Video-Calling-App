@@ -43,7 +43,7 @@ class RowMessage extends StatelessWidget {
             message: msg,
             isMe: isMe,
           ),
-          if (!isMe) buildLogo(),
+          // if (!isMe) buildLogo(),
         ],
       ),
     );
