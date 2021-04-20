@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_rtc/provider/call_duration.dart';
 
 import 'provider/dummy_data.dart';
 import 'screens/chat_screen/chatting_screen.dart';
+import 'screens/chat_screen/components/anim_tester.dart';
 import 'screens/onCall/body_on_video_call.dart';
 import 'screens/onCall/on_call_running.dart';
 
@@ -28,6 +30,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => MessageProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => CallProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -36,7 +41,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           backgroundColor: Colors.transparent,
         ),
-        home: OnCallRunningScreen(),
+        home: ChattingScreen(),
       ),
     );
   }

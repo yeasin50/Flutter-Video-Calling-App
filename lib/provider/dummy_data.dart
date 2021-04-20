@@ -17,7 +17,8 @@ class MessageProvider with ChangeNotifier {
   }
 
   Future<void> addMessage(Message message) async {
-    _messages.add(message);
+    // _messages.add(message);
+    _messages.insert(0, message);
     notifyListeners();
   }
 

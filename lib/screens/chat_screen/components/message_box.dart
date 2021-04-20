@@ -3,6 +3,7 @@ import 'package:web_rtc/components/utils.dart';
 import 'package:web_rtc/model/message.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+///`Test UI`
 class MessageBox extends StatelessWidget {
   final Message message;
 

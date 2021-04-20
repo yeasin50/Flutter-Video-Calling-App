@@ -16,16 +16,18 @@ class _ChatAppBarState extends State<ChatAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO:: chat appbar of conversation
+    ///for now just use Phonedesign
     if (kIsWeb)
-      return Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.navigate_before),
-            onPressed: () {},
-          ),
-        ],
-      );
+      return headerProfileActions(context);
+
+    // Row(
+    //   children: [
+    //     IconButton(
+    //       icon: Icon(Icons.navigate_before),
+    //       onPressed: () {},
+    //     ),
+    //   ],
+    // );
     else
       ////`phone appbar`
       return headerProfileActions(context);

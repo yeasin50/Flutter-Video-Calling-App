@@ -15,12 +15,13 @@ class ChatFooter extends StatefulWidget {
 }
 
 /// Here im taking myself as `User2`
-class _ChatFooterState extends State<ChatFooter> {
+class _ChatFooterState extends State<ChatFooter>
+    with SingleTickerProviderStateMixin {
   bool _sendButton = false;
   bool _openMoreActions = false;
   TextEditingController _messageController = new TextEditingController();
 
-  /// textForm decoration
+  /// `textForm decoration`
   final InputDecoration _inputDecoration = InputDecoration(
     contentPadding: EdgeInsets.all(8),
     hintText: "Aaa..",
@@ -57,8 +58,8 @@ class _ChatFooterState extends State<ChatFooter> {
   _sendMessage() {
     // "user1" : "user2"
     final msg = Message(
-      senderUId: "user2",
-      receiverUId: "user1",
+      senderUId: "user1",
+      receiverUId: "user2",
       text: _messageController.text.toString().trim(),
       sentTime: DateTime.now(),
     );
@@ -69,6 +70,29 @@ class _ChatFooterState extends State<ChatFooter> {
       _messageController.text = "";
     });
     print(dummyMessages.length);
+  }
+
+//// extra anim for `more` button
+  ///TODO:: get render Size of `row`
+  double _containderWidth = 120;
+  late AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 300),
+    vsync: this,
+  );
+  late Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.fastOutSlowIn,
+  );
+
+  /// open right more send option for image/ mic
+  _onMore() {
+    if (_openMoreActions)
+      _controller.reverse();
+    else
+      _controller.forward();
+    setState(() {
+      _openMoreActions = !_openMoreActions;
+    });
   }
 
   @override
@@ -84,20 +108,29 @@ class _ChatFooterState extends State<ChatFooter> {
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-              tooltip: "more",
-              icon: Icon(
-                _openMoreActions ? Icons.close : Icons.grid_view,
-                color: Colors.blue,
+            tooltip: "more",
+            icon: Icon(
+              _openMoreActions ? Icons.close : Icons.grid_view,
+              color: Colors.blue,
+            ),
+            onPressed: _onMore,
+          ),
+          ////`More send`
+          AnimatedContainer(
+            width: _openMoreActions ? _containderWidth : 0.0,
+            curve: Curves.easeInOutQuad,
+            alignment: Alignment.centerLeft,
+            duration: Duration(milliseconds: 300),
+            child: FittedBox(
+              child: ScaleTransition(
+                scale: _controller,
+                child: actionButton(),
               ),
-              onPressed: () {
-                setState(() {
-                  _openMoreActions = !_openMoreActions;
-                });
-              }),
-          if (_openMoreActions) actionButton(),
+            ),
+          ),
           ////`TextField`
           Expanded(
             child: TextFormField(

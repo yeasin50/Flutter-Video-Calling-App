@@ -46,9 +46,9 @@ class _MessageListState extends State<MessageList> {
             // final   = dummyMessages[index];
             ///check if this message alreay sent by current index user
             bool _draw = false;
-            if (index > 1) {
-              _draw =
-                  messages[index].senderUId != messages[index - 1].senderUId;
+            if (index >= 1) {
+              _draw = messages[index].receiverUId !=
+                  messages[index - 1].receiverUId;
             }
             if (index == 0) _draw = true;
 

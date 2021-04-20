@@ -50,6 +50,9 @@ if it's larger than your screen , it wont showUP
 
 ------
 
+#### helper:
+ - [Curves-class](https://api.flutter.dev/flutter/animation/Curves-class.html)
+
 
 
 ## License & copyright
