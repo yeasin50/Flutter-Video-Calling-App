@@ -9,15 +9,12 @@ class AuthForm extends StatefulWidget {
   _AuthFormState createState() => _AuthFormState();
 }
 
-class _AuthFormState extends State<AuthForm> {
+class _AuthFormState extends State<AuthForm>
+    with SingleTickerProviderStateMixin {
   var isLogin = true;
   bool _onAlreadyAccTapped = false;
   bool _passVisibility = true;
   bool _confPassVisibility = true;
-
-  ///confirm password animation
-  double _minWidth = 0;
-  double _maxWidth = double.maxFinite;
 
   final textFieldContainerDecoration = BoxDecoration(
       border: Border.all(
@@ -27,6 +24,16 @@ class _AuthFormState extends State<AuthForm> {
         ///later gradient
       ),
       borderRadius: BorderRadius.circular(20));
+
+  ///FIXME:: controller animation
+  //////confirm password animation
+  double _animContWidth = 0;
+
+  _switchLogin() {
+    setState(() {
+      isLogin = !isLogin;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +45,9 @@ class _AuthFormState extends State<AuthForm> {
             alignment: Alignment.center,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              height: constraints.maxHeight * .47,
-              child: ListView(
+              // height: constraints.maxHeight * .47,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   emailTextField(),
                   passwordTextField("Password"),
@@ -68,12 +76,7 @@ class _AuthFormState extends State<AuthForm> {
           setState(() => _onAlreadyAccTapped = true);
         },
         onTapUp: (_) => setState(() => _onAlreadyAccTapped = false),
-        onTap: () {
-          print("Sign Up");
-          setState(() {
-            isLogin = !isLogin;
-          });
-        },
+        onTap: _switchLogin,
         child: EasyRichText(
           isLogin
               ? "Don't have an Account? Sign up"
@@ -249,43 +252,23 @@ class _AuthFormState extends State<AuthForm> {
       hint,
       Icons.ac_unit,
     );
-    if (hint.toLowerCase().contains("confirm"))
-      _decoration = _decoration.copyWith(
-        suffix: GestureDetector(
-          onTap: () => setState(
-            () => _confPassVisibility = !_confPassVisibility,
-          ),
-          child: Icon(
-            _confPassVisibility
-                ? Icons.visibility
-                : Icons.visibility_off_rounded,
-            color: Colors.white.withOpacity(.8),
-          ),
+
+    _decoration = _decoration.copyWith(
+      suffix: GestureDetector(
+        onTap: () => setState(
+          () => _passVisibility = !_passVisibility,
         ),
-      );
-    else
-      _decoration = _decoration.copyWith(
-        suffix: GestureDetector(
-          onTap: () => setState(
-            () => _passVisibility = !_passVisibility,
-          ),
-          child: Icon(
-            _passVisibility ? Icons.visibility : Icons.visibility_off_rounded,
-            color: Colors.white.withOpacity(.8),
-          ),
+        child: Icon(
+          _passVisibility ? Icons.visibility : Icons.visibility_off_rounded,
+          color: Colors.white.withOpacity(.8),
         ),
-      );
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        obscureText: hint.toLowerCase().contains("confirm")
-            ? _confPassVisibility
-                ? true
-                : false
-            : _passVisibility
-                ? true
-                : false,
+        obscureText: _passVisibility ? true : false,
         cursorColor: Colors.green,
         key: ValueKey(hint),
         decoration: _decoration,
@@ -313,19 +296,13 @@ class _AuthFormState extends State<AuthForm> {
       ),
     );
 
-    ///FIXME:: controller animation
-    return AnimatedOpacity(
-      duration: Duration(seconds: 6),
-      opacity: isLogin ? 0 : 1,
-      curve: Curves.bounceIn,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextFormField(
-          obscureText: _confPassVisibility ? true : false,
-          cursorColor: Colors.green,
-          key: ValueKey(hint),
-          decoration: _decoration,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        obscureText: _confPassVisibility ? true : false,
+        cursorColor: Colors.green,
+        key: ValueKey(hint),
+        decoration: _decoration,
       ),
     );
   }
