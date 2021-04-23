@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_rtc/components/rounded_button.dart';
 import 'package:web_rtc/components/round_icon.dart';
@@ -11,7 +14,7 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm>
     with SingleTickerProviderStateMixin {
-  var isLogin = true;
+  bool isLogin = true;
   bool _onAlreadyAccTapped = false;
   bool _passVisibility = true;
   bool _confPassVisibility = true;
@@ -25,16 +28,34 @@ class _AuthFormState extends State<AuthForm>
       ),
       borderRadius: BorderRadius.circular(20));
 
-  ///FIXME:: controller animation
-  //////confirm password animation
-  double _animContWidth = 0;
+  late AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 300),
+    vsync: this,
+  );
+  late Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.fastOutSlowIn,
+  );
 
+  /// switch between logIn and SignUp
   _switchLogin() {
-    setState(() {
-      isLogin = !isLogin;
-    });
+    if (isLogin) {
+      setState(() => isLogin = false);
+      _controller.forward();
+    } else {
+      _controller.reverse();
+
+      ///`must: animation duration < controller duration`
+      Timer(
+          const Duration(milliseconds: 200),
+          () => _animation.addListener(() =>
+              SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+                if (_animation.isDismissed) setState(() => isLogin = true);
+              })));
+    }
   }
 
+  ///todo:: i can use constraints and everyone size, then i'll able to set animation size :()
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -276,7 +297,7 @@ class _AuthFormState extends State<AuthForm>
     );
   }
 
-  Widget confPasswordTextField(
+  ScaleTransition confPasswordTextField(
     String hint,
   ) {
     InputDecoration _decoration = inputDecoration(
@@ -296,13 +317,17 @@ class _AuthFormState extends State<AuthForm>
       ),
     );
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        obscureText: _confPassVisibility ? true : false,
-        cursorColor: Colors.green,
-        key: ValueKey(hint),
-        decoration: _decoration,
+    return ScaleTransition(
+      scale: _controller,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          obscureText: _confPassVisibility ? true : false,
+          cursorColor: Colors.green,
+          key: ValueKey(hint),
+          decoration: _decoration,
+        ),
       ),
     );
   }
@@ -323,13 +348,25 @@ class _AuthFormState extends State<AuthForm>
 
   Widget title(BuildContext context) {
     return Align(
-      alignment: Alignment(0, -.8),
+      alignment: Alignment(0, -.7),
       child: Text(
         isLogin ? "Login" : "Sign up",
         style: GoogleFonts.aladin(
             letterSpacing: 5,
             fontSize: Theme.of(context).textTheme.headline3!.fontSize,
             fontWeight: FontWeight.w600,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(8.0, 8.0),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Shadow(
+                offset: Offset(6.0, 6.0),
+                blurRadius: 8.0,
+                color: Color.fromARGB(125, 0, 0, 255),
+              ),
+            ],
             color: Colors.white),
       ),
     );
