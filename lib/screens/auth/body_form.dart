@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_rtc/components/rounded_button.dart';
 import 'package:web_rtc/components/round_icon.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
+import 'package:web_rtc/screens/conversationsScreen/chats_screen.dart';
 
 class AuthForm extends StatefulWidget {
   @override
@@ -18,6 +19,12 @@ class _AuthFormState extends State<AuthForm>
   bool _onAlreadyAccTapped = false;
   bool _passVisibility = true;
   bool _confPassVisibility = true;
+
+  ///`dummy userName, password`
+  late var _mail = "";
+  var _pass = '';
+  var _confPass = '';
+  final _formKey = GlobalKey<FormState>();
 
   final textFieldContainerDecoration = BoxDecoration(
       border: Border.all(
@@ -55,6 +62,20 @@ class _AuthFormState extends State<AuthForm>
     }
   }
 
+  _verifyUser() {
+    ///`validate form`
+    ///TODO:: validate more
+    if (_formKey.currentState!.validate()) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      _formKey.currentState!.save();
+      print("mail: $_mail");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Processing Data')));
+      Navigator.pushReplacementNamed(context, ConversationListScreen.routeName);
+    }
+  }
+
   ///todo:: i can use constraints and everyone size, then i'll able to set animation size :()
   @override
   Widget build(BuildContext context) {
@@ -67,20 +88,23 @@ class _AuthFormState extends State<AuthForm>
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               // height: constraints.maxHeight * .47,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  emailTextField(),
-                  passwordTextField("Password"),
-                  if (!isLogin) confPasswordTextField("Confirm Password"),
-                  loginORsignupButton(),
-                  orDivider(),
-                  alreadyHaveanAccount(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // socialIcons(),
-                ],
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    emailTextField(),
+                    passwordTextField(),
+                    if (!isLogin) confPasswordTextField(),
+                    loginORsignupButton(),
+                    orDivider(),
+                    alreadyHaveanAccount(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    // socialIcons(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -137,7 +161,7 @@ class _AuthFormState extends State<AuthForm>
       child: RoundedButton(
         labelText: isLogin ? "login" : "Signup",
         onPress: () {
-          print(isLogin ? "login" : "Signup");
+          _verifyUser();
         },
       ),
     );
@@ -256,6 +280,20 @@ class _AuthFormState extends State<AuthForm>
           width: 2,
         ),
       ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide(
+          color: Colors.redAccent,
+          width: 2,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide(
+          color: Colors.green,
+          width: 2,
+        ),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
@@ -266,11 +304,10 @@ class _AuthFormState extends State<AuthForm>
   }
 
   /// maybe separete 2 coz we wanna implement animation
-  Widget passwordTextField(
-    String hint,
-  ) {
+  Widget passwordTextField() {
+    final String _hint = "Password";
     InputDecoration _decoration = inputDecoration(
-      hint,
+      _hint,
       Icons.ac_unit,
     );
 
@@ -289,19 +326,27 @@ class _AuthFormState extends State<AuthForm>
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        onSaved: (newValue) => _pass = newValue!,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your password';
+          } else if (value.length < 4) {
+            return "minimum 4 characters";
+          }
+          return null;
+        },
         obscureText: _passVisibility ? true : false,
         cursorColor: Colors.green,
-        key: ValueKey(hint),
+        key: ValueKey(_hint),
         decoration: _decoration,
       ),
     );
   }
 
-  ScaleTransition confPasswordTextField(
-    String hint,
-  ) {
+  ScaleTransition confPasswordTextField() {
+    final String _hint = "Confirm Password";
     InputDecoration _decoration = inputDecoration(
-      hint,
+      _hint,
       Icons.ac_unit,
     );
 
@@ -323,9 +368,20 @@ class _AuthFormState extends State<AuthForm>
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
+          onSaved: (newValue) => _confPass = newValue!,
+          validator: (value) {
+            if (isLogin)
+              return null;
+            else if (value == null || value.isEmpty) {
+              return 'Please Retype your password';
+            } else if (value.length < 4) {
+              return "minimum 4 characters";
+            }
+            return null;
+          },
           obscureText: _confPassVisibility ? true : false,
           cursorColor: Colors.green,
-          key: ValueKey(hint),
+          key: ValueKey(_hint),
           decoration: _decoration,
         ),
       ),
@@ -337,6 +393,14 @@ class _AuthFormState extends State<AuthForm>
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         cursorColor: Colors.green,
+        onSaved: (newValue) => _mail = newValue!,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your email';
+          }
+          if (!value.contains("@")) return "invalid email";
+          return null;
+        },
         key: ValueKey('email'),
         decoration: inputDecoration(
           "Email",
