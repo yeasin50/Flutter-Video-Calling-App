@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_rtc/provider/call_duration.dart';
+import 'package:web_rtc/screens/conversationsScreen/chats_screen.dart';
 
 import 'provider/dummy_data.dart';
 import 'screens/auth/auth_screen.dart';
@@ -43,7 +44,18 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.transparent,
         ),
         home: AuthScreen(),
+        routes: routes,
       ),
     );
+  }
+
+  /// number of screens
+  get routes {
+    return {
+      AuthScreen.routeName: (_) => AuthScreen(),
+      ConversationListScreen.routeName: (_) => ConversationListScreen(),
+      ChattingScreen.routeName: (_) => ChattingScreen(),
+      CallingScreen.routeName: (_) => CallingScreen(),
+    };
   }
 }
