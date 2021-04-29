@@ -27,7 +27,7 @@ class RoundTextContainer extends StatelessWidget {
     );
 
     _styleTime = GoogleFonts.lato(
-      fontSize: SizeConfig.subtitle1*.5,
+      fontSize: SizeConfig.subtitle1 * .5,
       color: Colors.white,
     );
   }
@@ -91,7 +91,7 @@ class RoundTextContainer extends StatelessWidget {
     else
       return Container(
         width: _textWidth + 1,
-        height: _height + _timeTextSize.height+10,
+        height: _height + _timeTextSize.height + 10,
         margin: EdgeInsets.only(right: 8),
         padding: EdgeInsets.only(right: 2),
         child: Column(
